@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import userContext from "./userContext";
 import "./Homepage.css";
 import logo from "./logo.png";
@@ -14,16 +14,11 @@ import logo from "./logo.png";
 
 function Homepage() {
   const { currUser } = useContext(userContext);
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    // Update the loggedIn state based on the currUser
-    setLoggedIn(currUser !== null);
-  }, [currUser]);
+  const isLoggedIn = !!currUser; // Check if currUser exists (i.e., user is logged in)
 
   return (
     <div className="home">
-      {!loggedIn && (
+      {!isLoggedIn && (
         <div>
           <h4>Thanks for checking out my demo!</h4>
           <h5>
@@ -35,7 +30,7 @@ function Homepage() {
       <header className="home-header">
         <img src={logo} className="home-logo" alt="logo" />
         <div className="title">
-          {loggedIn && <h3>Welcome, {currUser.username}!</h3>}
+          {isLoggedIn && <h3>Welcome, {currUser.username}!</h3>}
           <h1>Yard Hoppers</h1>
           <h4>Get on my lawn!</h4>
         </div>
