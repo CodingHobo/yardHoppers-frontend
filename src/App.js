@@ -88,7 +88,7 @@ async function createListing(data) {
   if (isLoading) return <i>Loading...</i>;
   return (
     <div className="App">
-      <userContext.Provider value={ currUser }>
+      <userContext.Provider value={ {currUser} }>
         <BrowserRouter>
           <Navigation logout={logout}/>
           <RoutesList login={login} signup={signup} createListing={createListing} listState={listState}/>
