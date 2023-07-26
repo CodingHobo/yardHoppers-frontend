@@ -30,7 +30,6 @@ function Homepage() {
           <h4>Get on my lawn!</h4>
         </div>
       </header>
-
     </div>
   );
 }
