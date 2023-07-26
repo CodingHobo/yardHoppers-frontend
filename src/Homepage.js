@@ -13,7 +13,7 @@ import logo from "./logo.png";
  */
 
 function Homepage() {
-  const { currUser } = useContext(userContext);
+  const currUser = useContext(userContext);
 
   return (
     <div className="home">
