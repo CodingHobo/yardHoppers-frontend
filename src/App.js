@@ -28,10 +28,11 @@ function App() {
       async function decodeToken() {
         if (token) {
           const payload = jwt_decode(token);
-
           YardHoppersApi.token = token;
-
           const user = await YardHoppersApi.getUserData(payload.username);
+
+          console.log('User data from API:', user);
+
           setCurrUser(user);
           setIsLoading(false);
         } else {
