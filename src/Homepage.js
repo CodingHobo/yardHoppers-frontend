@@ -15,11 +15,12 @@ import logo from "./logo.png";
 function Homepage() {
   const { currUser } = useContext(userContext);
 
-
   return (
     <div className="home">
-
-
+      <div>
+        <h4>Thanks for checking out my demo!</h4>
+        <h5>Proceed to the <a href="/login">Login</a> Page for instructions on navigating the site.</h5>
+      </div>
       <header className="home-header">
         <img src={logo} className="home-logo" alt="logo" />
         <div className="title">
@@ -28,7 +29,6 @@ function Homepage() {
           <h4>Get on my lawn!</h4>
         </div>
       </header>
-
     </div>
   );
 }
