@@ -4,7 +4,7 @@ import userContext from "./userContext";
 import { useParams, useNavigate } from 'react-router-dom';
 import YardHoppersApi from './api';
 import './ListingDetail.css'
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -64,34 +64,35 @@ function ListingDetail() {
 
   return (
     <div className="ListingDetailPage">
-    <Container className="listing-card-container">
-      <Card>
-        <Row>
-          <Col md={6}>
-            <Card.Img variant="top" src={listing.photo_url} />
-          </Col>
-          <Col md={6}>
-            <Card.Body>
-              <Card.Title>{listing.title}</Card.Title>
-              <Card.Text>
-                {listing.city}, {listing.state}
-              </Card.Text>
-              <Card.Text>{listing.description}</Card.Text>
-              <Card.Text>${listing.price}/day</Card.Text>
-                {currUser && <Button variant='primary'>Book Now</Button>}
-                {currUser.username === listing.host_user && (
-                  <Button
-                    variant='danger'
-                    onClick={() =>
-                      handleDeleteListing(currUser.username)}>
-                    Delete Listing
-                  </Button>
-              )}
-            </Card.Body>
-          </Col>
-        </Row>
-      </Card>
-    </Container>
+      <ToastContainer />
+      <Container className="listing-card-container">
+        <Card>
+          <Row>
+            <Col md={6}>
+              <Card.Img variant="top" src={listing.photo_url} />
+            </Col>
+            <Col md={6}>
+              <Card.Body>
+                <Card.Title>{listing.title}</Card.Title>
+                <Card.Text>
+                  {listing.city}, {listing.state}
+                </Card.Text>
+                <Card.Text>{listing.description}</Card.Text>
+                <Card.Text>${listing.price}/day</Card.Text>
+                  {currUser && <Button variant='primary'>Book Now</Button>}
+                  {currUser.username === listing.host_user && (
+                    <Button
+                      variant='danger'
+                      onClick={() =>
+                        handleDeleteListing(currUser.username)}>
+                      Delete Listing
+                    </Button>
+                )}
+              </Card.Body>
+            </Col>
+          </Row>
+        </Card>
+      </Container>
     </div>
   );
 }
