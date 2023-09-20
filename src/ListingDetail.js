@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Card, Row, Col, Container, Button } from "react-bootstrap";
 import userContext from "./userContext";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import YardHoppersApi from './api';
 import './ListingDetail.css'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 /** Component to display details about details for specific listing
@@ -23,20 +26,7 @@ function ListingDetail() {
   const { listing_id } = useParams();
   const { currUser } = useContext(userContext);
 
-  console.log(listing_id)
-  console.log("Host user =", listing.host_user)
-  console.log("Current user=", currUser.username)
-
-  async function handleDeleteListing(username) {
-    try {
-      await YardHoppersApi.deleteListing(username, listing_id);  // Assuming your YardHoppersApi has a deleteListing method
-      alert('Listing deleted successfully!');
-      // Redirect or update UI after deletion, e.g., using history.push() or another method
-    } catch (error) {
-      console.error("Error deleting listing:", error.message);
-      alert('Error deleting listing. Please try again.');
-    }
-  }
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchListing() {
@@ -57,6 +47,21 @@ function ListingDetail() {
     return <div>No listing found.</div>;
   }
 
+  async function handleDeleteListing() {
+      try {
+          await YardHoppersApi.deleteListing(listing_id);
+
+          toast.success('Listing deleted successfully!', {
+              onClose: () => navigate("/listings"),  // redirect when the toast is closed
+              autoClose: 3000  // close toast after 3 seconds
+          });
+
+      } catch (error) {
+          console.error("Error deleting listing:", error.message);
+          toast.error('Error deleting listing. Please try again.');
+      }
+  }
+
   return (
     <div className="ListingDetailPage">
     <Container className="listing-card-container">
@@ -75,7 +80,12 @@ function ListingDetail() {
               <Card.Text>${listing.price}/day</Card.Text>
                 {currUser && <Button variant='primary'>Book Now</Button>}
                 {currUser.username === listing.host_user && (
-                <Button variant='danger' onClick={handleDeleteListing}>Delete Listing</Button>
+                  <Button
+                    variant='danger'
+                    onClick={() =>
+                      handleDeleteListing(currUser.username)}>
+                    Delete Listing
+                  </Button>
               )}
             </Card.Body>
           </Col>

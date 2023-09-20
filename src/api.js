@@ -49,10 +49,10 @@ class YardHoppersApi {
   }
 
   /** Delete a listing by listId. */
-static async deleteListing(username, listing_id) {
+static async deleteListing(listing_id) {
   let res = await this.request(
     `listings/${listing_id}`,
-    { username, listing_id },
+    {},
     "delete");
   return res;
 }
