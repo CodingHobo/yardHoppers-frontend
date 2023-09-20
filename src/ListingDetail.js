@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Card, Row, Col, Container, Button } from "react-bootstrap";
 import userContext from "./userContext";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import YardHoppersApi from './api';
 import './ListingDetail.css'
 
@@ -23,19 +23,18 @@ function ListingDetail() {
   const { listing_id } = useParams();
   const { currUser } = useContext(userContext);
 
-  const history = useNavigate();  // Use this for navigation
-
   console.log(listing_id)
   console.log("Host user =", listing.host_user)
   console.log("Current user=", currUser.username)
 
-  const handleDeleteListing = async () => {
+  async function handleDeleteListing(username) {
     try {
-      await YardHoppersApi.deleteListing(listing_id);  // Use the API directly here
-      history.push('/listings');  // Redirect the user back to the listings page
-    } catch (err) {
-      console.error("Error deleting the listing:", err);
-      // Handle error (maybe show a notification to the user)
+      await YardHoppersApi.deleteListing(username, listing_id);  // Assuming your YardHoppersApi has a deleteListing method
+      alert('Listing deleted successfully!');
+      // Redirect or update UI after deletion, e.g., using history.push() or another method
+    } catch (error) {
+      console.error("Error deleting listing:", error.message);
+      alert('Error deleting listing. Please try again.');
     }
   }
 
@@ -75,7 +74,7 @@ function ListingDetail() {
               <Card.Text>{listing.description}</Card.Text>
               <Card.Text>${listing.price}/day</Card.Text>
                 {currUser && <Button variant='primary'>Book Now</Button>}
-              {currUser.username === listing.host_user && (
+                {currUser.username === listing.host_user && (
                 <Button variant='danger' onClick={handleDeleteListing}>Delete Listing</Button>
               )}
             </Card.Body>
