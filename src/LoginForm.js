@@ -66,7 +66,7 @@ function LoginForm({ handleLogin }) {
           <Form.Control
             type='password'
             name='password'
-            placeholder='Enter "password"'
+            placeholder='Type "password"'
             onChange={handleChange}
             value={loginData.password}
           />
