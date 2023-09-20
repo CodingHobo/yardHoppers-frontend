@@ -44,18 +44,25 @@ class YardHoppersApi {
   }
 
   static async createListing(newListingData) {
-    let res = await this.request("listings", newListingData, "post");
-    return res.listing;
+    console.log("Sending listing data:", newListingData);
+
+    try {
+        let res = await this.request("listings", newListingData, "post");
+        console.log("Received response:", res);
+        return res.listing;
+    } catch (error) {
+        console.error("Error in createListing API call:", error);
+    }
   }
 
-  /** Delete a listing by listId. */
-static async deleteListing(listing_id) {
-  let res = await this.request(
-    `listings/${listing_id}`,
-    {},
-    "delete");
-  return res;
-}
+  /** Delete a listing by listing_id. */
+  static async deleteListing(listing_id) {
+    let res = await this.request(
+      `listings/${listing_id}`,
+      {},
+      "delete");
+    return res;
+  }
 
   /** Get details about User by username/token */
   static async getUserData(username) {
