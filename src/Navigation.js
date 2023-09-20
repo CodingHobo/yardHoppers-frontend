@@ -75,7 +75,7 @@ function Navigation({ logout }) {
               </Nav.Link>
               <Nav.Link
                 as={NavLink}
-                to="/"
+                to="/profile"
                 onClick={() => {
                   handleLinkClick();
                   logout();

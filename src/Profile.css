@@ -1,0 +1,28 @@
+.profile {
+  text-align: center;
+  font-family: 'Prompt', sans-serif;
+  font-weight: 300;
+  color: #b6e0ea;
+}
+
+
+.profile-header {
+  background-color: #023035;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #b6e0ea;
+  padding-top: 40px;
+}
+
+.profile-header .title h1,
+.profile-header .title h4 {
+  font-weight: 200;
+}
+
+.profile-link {
+  color: #61dafb;
+}
