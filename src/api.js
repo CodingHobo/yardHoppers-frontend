@@ -44,8 +44,6 @@ class YardHoppersApi {
   }
 
   static async createListing(newListingData) {
-    console.log("Sending listing data:", newListingData);
-
     try {
         let res = await this.request("listings", newListingData, "post");
         console.log("Received response:", res);
@@ -63,15 +61,9 @@ class YardHoppersApi {
       "delete");
     return res;
   }
-
-  /** Get details about User by username/token */
-  static async getUserData(username) {
-    let res = await this.request(`users/${username}`);
-    return res.user;
-  }
-
+  
   /** Update details for specific listing. */
-  static async update(listId, { price, description, photo_url }) {
+  static async updateListing(listId, { price, description, photo_url }) {
     let res = await this.request(
       `listings/${listId}`,
       { price, description, photo_url },
@@ -79,6 +71,13 @@ class YardHoppersApi {
     );
     return res.user;
   }
+
+  /** Get details about User by username/token */
+  static async getUserData(username) {
+    let res = await this.request(`users/${username}`);
+    return res.user;
+  }
+
 
   /** Return token when creating a new user. */
   static async register({ username, password, firstName, lastName, email }) {
@@ -98,6 +97,23 @@ class YardHoppersApi {
     }
   }
 
+  /** Update details for specific user. */
+  static async updateUserInfo(username, updateData) {
+    try {
+        let res = await this.request(
+            `users/${username}`,
+            updateData,
+            "patch"
+        );
+        return res.user;
+    } catch (err) {
+        console.error("API Error:", err);
+        let message = err.response.data.error.message;
+        throw Array.isArray(message) ? message : [message];
+    }
+  }
+
+
   /** Return token when logging in as existing user. */
   static async login(username, password) {
     let res = await this.request("auth/token", { username, password }, "post");
@@ -105,5 +121,6 @@ class YardHoppersApi {
     return res.token;
   }
 }
+
 
 export default YardHoppersApi;

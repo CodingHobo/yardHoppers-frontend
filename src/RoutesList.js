@@ -15,7 +15,8 @@ import userContext from "./userContext";
  * props:
  * - login: function to handle login form submit passed from app
  * - signup: function to handle signup form submit passed from app
- * - update: function to handle update form submit passed from app
+ * - updateUserInfo: function to handle update user form submit passed from app
+ * - updateListing: function to handle update listing form submit passed from app
  *
  * context:
  * - currUser: current user data
@@ -28,7 +29,14 @@ import userContext from "./userContext";
  *
  */
 
-function RoutesList({ login, signup, createListing, deleteListing, listState}) {
+function RoutesList({
+  login,
+  signup,
+  updateUserInfo,
+  createListing,
+  updateListing,
+  deleteListing,
+  listState }) {
   const { currUser } = useContext(userContext);
 
   return (
@@ -43,7 +51,10 @@ function RoutesList({ login, signup, createListing, deleteListing, listState}) {
 
 {currUser &&
         <>
-      <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile
+          updateUserInfo={updateUserInfo}
+          updateListing={updateListing} />
+} />
       <Route path="/new-listing" element={<CreateListingForm  handleCreateListing={createListing}/>}  />
       </>
 }

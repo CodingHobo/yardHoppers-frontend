@@ -44,7 +44,7 @@ function App() {
     [token]
   );
 
-  /** Set joblyToken in localStorage to value of token */
+  /** Set token in localStorage to value of token */
   useEffect(
     function updateLocalStorage() {
       if (token) {
@@ -68,21 +68,26 @@ function App() {
     setToken(resp);
   }
 
-  // /** Make request to update user information, set response as currUser */
-  // async function update(data) {
-  //   const resp = await YardHoppersApi.update(data);
-  //   setCurrUser(resp);
-  // }
+  /** Make request to update user information, set response as currUser */
+  async function updateUserInfo(data) {
+    const resp = await YardHoppersApi.updateUserInfo(data);
+    setCurrUser(resp);
+  }
 
   /** Log out user, reset token. */
   function logout() {
     setToken("");
   }
 
-async function createListing(data) {
- const resp = await YardHoppersApi.createListing(data);
- const updatedListings = {...listings, resp}
- setListings(updatedListings);
+  async function createListing(data) {
+    const resp = await YardHoppersApi.createListing(data);
+    const updatedListings = {...listings, resp}
+    setListings(updatedListings);
+  }
+
+  async function updateListing(data) {
+    const resp = await YardHoppersApi.updateListing(data);
+    setListings(resp);
   }
 
   if (isLoading) return <i>Loading...</i>;
@@ -91,7 +96,13 @@ async function createListing(data) {
       <userContext.Provider value={ {currUser} }>
         <BrowserRouter>
           <Navigation logout={logout}/>
-          <RoutesList login={login} signup={signup} createListing={createListing} listState={listState}/>
+          <RoutesList
+            login={login}
+            signup={signup}
+            updateUserInfo={updateUserInfo}
+            createListing={createListing}
+            updatelisting={updateListing}
+            listState={listState} />
         </BrowserRouter>
       </userContext.Provider>
     </div>
@@ -99,3 +110,4 @@ async function createListing(data) {
 }
 
 export default App;
+
