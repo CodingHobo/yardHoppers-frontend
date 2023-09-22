@@ -20,7 +20,8 @@ function Homepage() {
         <img src={logo} className="home-logo" alt="logo" />
         {!currUser && (
         <div>
-          <h6>Proceed to <a href="/login">Login</a> page for login creds.</h6>
+            <h6>Proceed to <a href="/login">Login</a> page for login creds.</h6>
+            <h6>Or <a href="/signup">Sign Up</a> to create a new profile where you can create/delete your own listings!</h6>
         </div>
         )}
         <div className="title">
@@ -33,6 +34,8 @@ function Homepage() {
           <h4>Get on my lawn!</h4>
         </div>
       </header>
+      <p>Tech Stack: React | AWS3 | JWT | Bootstrap</p>
+
     </div>
   );
 }

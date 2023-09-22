@@ -12,8 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 /** Component to display details about details for specific listing
  *
  * State:
- * - listingDetails: { listing: { handle, name, description, numEmployees, logoUrl,
- *                  jobs: [{id, title, salary, equity}]}
+ * - listingDetails: { listing: { title, city, state, description, price,
  *                  isLoading: determines what get rendered based on value}
  *
  * RoutesList/ListingList -> ListingDetails
@@ -80,14 +79,13 @@ function ListingDetail() {
                 <Card.Text>{listing.description}</Card.Text>
                 <Card.Text>${listing.price}/day</Card.Text>
                   {currUser && <Button variant='primary'>Book Now</Button>}
-                  {currUser.username === listing.host_user && (
+                  {currUser?.username === listing.host_user && (
                     <Button
                       variant='danger'
-                      onClick={() =>
-                        handleDeleteListing(currUser.username)}>
+                      onClick={() => handleDeleteListing(currUser.username)}>
                       Delete Listing
                     </Button>
-                )}
+                  )}
               </Card.Body>
             </Col>
           </Row>
